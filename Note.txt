@@ -1,0 +1,4 @@
+IDE: https://remix.ethereum.org/#optimize=false&version=soljson-v0.5.1+commit.c8a2cb62.js
+
+Tutorial: https://www.youtube.com/watch?v=hO62lD_Ulys&list=PLS5SEs8ZftgUq-aMMYeKf8nPqHrNqa3Iu&index=2
+
