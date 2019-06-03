@@ -20,6 +20,10 @@ contract MyContract {
     uint8 public myInt8 = 8;
     uint256 public myInt256 = 999999;
     
+    //enum
+    enum State { Waiting, Ready, Active }
+    State public state = State.Ready;
+    
     // constructor() public {
     //     value = "My Value";
     // }
@@ -30,11 +34,11 @@ contract MyContract {
     }
     
     // These 2 methods can be omitted as the variables are public
-    function get() public view returns(string memory) {
-      return value;
-    }
+    // function get() public view returns(string memory) {
+    //   return value;
+    // }
     
-    function getConstant() public pure returns(string memory) {
-        return constantValue;
-    }
+    // function getConstant() public pure returns(string memory) {
+    //     return constantValue;
+    // }
 }
