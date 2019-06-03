@@ -12,6 +12,18 @@ contract MyStructWithMapContract {
     // So we need to know the size of the map
     mapping(uint => Person) public people;
      
+    // datatype address
+    address owner;
+    modifier onlyOwner() {
+        // msg, tx, block
+        require(msg.sender == owner, "Only owner can perform this operation!");
+        _;
+    }
+    
+    constructor() public {
+        // Assign the owner when the contract is created
+        owner = msg.sender;
+    }
     
     // Model
     struct Person {
@@ -20,10 +32,24 @@ contract MyStructWithMapContract {
         string _lastName;
     }
     
-    function addPerson(string memory _firstName, string memory _lastName) public returns(uint) {
-        peopleCount += 1;
+    // Add custom modifier: onlyOwner
+    // Try switch accoutn and add a person, it will throw an exception
+    function addPerson(
+        string memory _firstName,
+        string memory _lastName
+    )
+        public 
+        onlyOwner 
+        returns(uint) 
+    {
+        incrementCount();
         people[peopleCount] = Person(peopleCount, _firstName, _lastName);
         // return id of the newly added person
         return peopleCount;
+    }
+
+    // private method
+    function incrementCount() internal {
+        peopleCount += 1;
     }
 }
