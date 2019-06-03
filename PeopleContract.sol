@@ -1,6 +1,6 @@
 pragma solidity 0.5.9;
 
-contract MyStructWithMapContract {
+contract PeopleContract {
     
     uint256 public peopleCount = 0;
     
@@ -12,19 +12,15 @@ contract MyStructWithMapContract {
     // So we need to know the size of the map
     mapping(uint => Person) public people;
      
-    // datatype address
-    address owner;
-    modifier onlyOwner() {
-        // msg, tx, block
-        require(msg.sender == owner, "Only owner can perform this operation!");
-
-        // to run the body
-        _;
-    }
+    // Time in second
+    // absolute unix timestamps (seconds since 1970-01-01)
+    // https://www.epochconverter.com/clock
+    uint256 openningTime = 1559537577;//Change this value for test
     
-    constructor() public {
-        // Assign the owner when the contract is created
-        owner = msg.sender;
+    modifier onlyWhileOpen() {
+        // msg, tx, block, now
+        require(block.timestamp >= openningTime, "This operation can be performed while the service is open");
+        _;
     }
     
     // Model
@@ -41,7 +37,7 @@ contract MyStructWithMapContract {
         string memory _lastName
     )
         public 
-        onlyOwner 
+        onlyWhileOpen 
         returns(uint) 
     {
         incrementCount();
@@ -49,7 +45,7 @@ contract MyStructWithMapContract {
         // return id of the newly added person
         return peopleCount;
     }
-
+    
     // private method
     function incrementCount() internal {
         peopleCount += 1;
